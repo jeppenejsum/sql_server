@@ -37,7 +37,7 @@ windows_package node['sql_server']['server']['package_name'] do
   source node['sql_server']['server']['url']
   checksum node['sql_server']['server']['checksum']
   installer_type :custom
-  options "/q /ConfigurationFile=#{config_file_path}"
+  options "/q /sdkfjdskh /ConfigurationFile=#{config_file_path}"
   action :install
 end
 
