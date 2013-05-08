@@ -36,7 +36,7 @@ unless node.recipe?("sql_server::server")
   version = node['sql_server']['version'] == '2012' ? '110' : '100'
 
   # update path
-  windows_path 'C:\Program Files\Microsoft SQL Server\'+version+'\Tools\Binn' do
+  windows_path 'C:\Program Files\Microsoft SQL Server\\'+version+'\Tools\Binn' do
    action :add
   end
 
