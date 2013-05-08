@@ -30,7 +30,7 @@ node.save unless Chef::Config[:solo]
 config_file_path = win_friendly_path(File.join(Chef::Config[:file_cache_path], "ConfigurationFile.ini"))
 
 template config_file_path do
-  source "ConfigurationFile.ini.erb"
+  source  node['sql_server']['version'] == '2012' ? "ConfigurationFile-2012.ini.erb" : "ConfigurationFile.ini.erb"
 end
 
 windows_package node['sql_server']['server']['package_name'] do
