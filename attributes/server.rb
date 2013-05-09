@@ -32,7 +32,6 @@ if kernel['machine'] =~ /x86_64/
     default['sql_server']['server2012']['url']          = 'http://care.dlservice.microsoft.com/dl/download/5/1/A/51A153F6-6B08-4F94-A7B2-BA1AD482BC75/SQLEXPR_x64_ENU.exe'
     default['sql_server']['server2012']['checksum']     = '6840255cf493927a3f5e1d7f865b8409ed89133e3657a609da229bab4005b613'
     default['sql_server']['server2012']['package_name'] = 'Microsoft SQL Server 2008 R2 (64-bit)'
-  end
 else
 
   default['sql_server']['server']['url']          = 'http://care.dlservice.microsoft.com/dl/download/5/1/A/51A153F6-6B08-4F94-A7B2-BA1AD482BC75/SQLEXPR32_x86_ENU.exe'
