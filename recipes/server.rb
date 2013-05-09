@@ -33,11 +33,12 @@ template config_file_path do
   source  node['sql_server']['version'] == '2012' ? "ConfigurationFile-2012.ini.erb" : "ConfigurationFile.ini.erb"
 end
 
-windows_package node['sql_server']['server']['package_name'] do
-  source node['sql_server']['server']['url']
-  checksum node['sql_server']['server']['checksum']
+package = node['sql_server']['version'] == '2012' ? node['sql_server']['server2012']['package_name'] : node['sql_server']['server']['package_name']
+windows_package package do
+  source node['sql_server']['version'] == '2012' ? node['sql_server']['server2012']['url'] : node['sql_server']['server']['url']
+  checksum node['sql_server']['version'] == '2012' ? node['sql_server']['server2012']['checksum'] : node['sql_server']['server']['checksum']
   installer_type :custom
-  options "/q /sdkfjdskh /ConfigurationFile=#{config_file_path}"
+  options "/q /ConfigurationFile=#{config_file_path}"
   action :install
 end
 

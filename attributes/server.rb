@@ -25,14 +25,13 @@ default['sql_server']['instance_name']  = 'SQLEXPRESS'
 default['sql_server']['instance_dir']   = 'C:\Program Files\Microsoft SQL Server'
 
 if kernel['machine'] =~ /x86_64/
-  if node['sql_server']['version'] == '2012'
     default['sql_server']['server']['url']          = 'http://download.microsoft.com/download/8/D/D/8DD7BDBA-CEF7-4D8E-8C16-D9F69527F909/ENU/x64/SQLEXPR_x64_ENU.exe'
     default['sql_server']['server']['checksum']     = '7f5e3d40b85fba2da5093e3621435c209c4ac90d34219bab8878e93a787cf29f'
     default['sql_server']['server']['package_name'] = 'Microsoft SQL Server 2012 (64-bit)'
-  else
-    default['sql_server']['server']['url']          = 'http://care.dlservice.microsoft.com/dl/download/5/1/A/51A153F6-6B08-4F94-A7B2-BA1AD482BC75/SQLEXPR_x64_ENU.exe'
-    default['sql_server']['server']['checksum']     = '6840255cf493927a3f5e1d7f865b8409ed89133e3657a609da229bab4005b613'
-    default['sql_server']['server']['package_name'] = 'Microsoft SQL Server 2008 R2 (64-bit)'
+
+    default['sql_server']['server2012']['url']          = 'http://care.dlservice.microsoft.com/dl/download/5/1/A/51A153F6-6B08-4F94-A7B2-BA1AD482BC75/SQLEXPR_x64_ENU.exe'
+    default['sql_server']['server2012']['checksum']     = '6840255cf493927a3f5e1d7f865b8409ed89133e3657a609da229bab4005b613'
+    default['sql_server']['server2012']['package_name'] = 'Microsoft SQL Server 2008 R2 (64-bit)'
   end
 else
 
