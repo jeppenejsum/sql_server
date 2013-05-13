@@ -25,7 +25,7 @@ default['sql_server']['instance_name']  = 'SQLEXPRESS'
 default['sql_server']['instance_dir']   = 'C:\Program Files\Microsoft SQL Server'
 
 if kernel['machine'] =~ /x86_64/
-    default['sql_server']['server2012']['url']          = 'http:////download.microsoft.com/download/5/2/9/529FEF7B-2EFB-439E-A2D1-A1533227CD69/SQLEXPR_x64_ENU.exe'
+    default['sql_server']['server2012']['url']          = 'http://download.microsoft.com/download/5/2/9/529FEF7B-2EFB-439E-A2D1-A1533227CD69/SQLEXPR_x64_ENU.exe'
     default['sql_server']['server2012']['checksum']     = '7fae66c782d2fa3428530a074d091b51dcd17dee52b5a031c58505b01027d10f'
     default['sql_server']['server2012']['package_name'] = 'Microsoft SQL Server 2012 (64-bit)'
 
