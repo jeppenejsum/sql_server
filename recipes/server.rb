@@ -29,14 +29,17 @@ node.save unless Chef::Config[:solo]
 
 config_file_path = win_friendly_path(File.join(Chef::Config[:file_cache_path], "ConfigurationFile.ini"))
 
+is2012? = node['sql_server']['version'] == '2012'
 template config_file_path do
-  source  node['sql_server']['version'] == '2012' ? "ConfigurationFile-2012.ini.erb" : "ConfigurationFile.ini.erb"
+  source is2012? ? "ConfigurationFile-2012.ini.erb" : "ConfigurationFile.ini.erb"
 end
 
-package = node['sql_server']['version'] == '2012' ? node['sql_server']['server2012']['package_name'] : node['sql_server']['server']['package_name']
+section = node['sql_server'][is2012? ? "server2012" : "server"]
+ 
+package = section['package_name']
 windows_package package do
-  source node['sql_server']['version'] == '2012' ? node['sql_server']['server2012']['url'] : node['sql_server']['server']['url']
-  checksum node['sql_server']['version'] == '2012' ? node['sql_server']['server2012']['checksum'] : node['sql_server']['server']['checksum']
+  source section['url']
+  checksum section['checksum']
   installer_type :custom
   options "/q /ConfigurationFile=#{config_file_path}"
   action :install
@@ -47,8 +50,9 @@ service service_name do
 end
 
 # set the static tcp port
+subkey = is2012? ? "MSSQL11" : "MSSQL10_50"
 windows_registry "set-static-tcp-port"  do
-  key_name 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SQL Server\MSSQL10_50.' << node['sql_server']['instance_name'] << '\MSSQLServer\SuperSocketNetLib\Tcp\IPAll'
+  key_name 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SQL Server\\' << subkey << '.' << node['sql_server']['instance_name'] << '\MSSQLServer\SuperSocketNetLib\Tcp\IPAll'
   values 'TcpPort' => node['sql_server']['port'].to_s, 'TcpDynamicPorts' => ""
   action :force_modify
   notifies :restart, "service[#{service_name}]", :immediately
